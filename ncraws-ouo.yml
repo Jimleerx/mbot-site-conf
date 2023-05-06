@@ -1,0 +1,189 @@
+id: ouo
+name: ncraws(ouo.si)
+domain: https://ouo.si
+encoding: UTF-8
+lang: zh
+
+login:
+  required: false
+  test:
+    selector: a.nav-btn
+
+category_mappings:
+  - { id: _, cate_level1: Anime, cate_level2: TV/Anime, cate_level2_desc: "Anime(动画)" }
+  - { id: 3_, cate_level1: Anime, cate_level2: TV/Anime, cate_level2_desc: "动画" }
+  - { id: 3_1, cate_level1: Anime, cate_level2: TV/AnimeMV, cate_level2_desc: "动画 - 动画MV" }
+  - { id: 3_5, cate_level1: Anime, cate_level2: TV/EnglishTranslated, cate_level2_desc: "动画 - 英文翻译" }
+  - { id: 3_1, cate_level1: Anime, cate_level2: TV/NonEnglishTranslated, cate_level2_desc: "动画 - 非英文翻译" }
+  - { id: 3_6, cate_level1: Anime, cate_level2: TV/RAW, cate_level2_desc: "动画 - 生肉" }
+  - { id: 2_, cate_level1: Music, cate_level2: Music, cate_level2_desc: "音乐" }
+  - { id: 2_3, cate_level1: Music, cate_level2: Music/Lossless, cate_level2_desc: "音乐 - 无损" }
+  - { id: 2_4, cate_level1: Music, cate_level2: Music/Lossy, cate_level2_desc: "音乐 - 有损" }
+  - { id: 4_, cate_level1: Book, cate_level2: Book, cate_level2_desc: "书籍" }
+  - { id: 4_7, cate_level1: Book, cate_level2: Book/EnglishTranslated, cate_level2_desc: "书籍 - 英文翻译" }
+  - { id: 4_1, cate_level1: Book, cate_level2: Book/NonEnglishTranslated, cate_level2_desc: "书籍 - 非英文翻译" }
+  - { id: 4_8, cate_level1: Book, cate_level2: Book/RAW, cate_level2_desc: "书籍 - 生肉" }
+  - { id: 5_, cate_level1: Live, cate_level2: Live/Anime, cate_level2_desc: "真人版" }
+  - { id: 5_9, cate_level1: Live, cate_level2: Live/EnglishTranslated, cate_level2_desc: "真人版 - 英文翻译" }
+  - { id: 5_1, cate_level1: Live, cate_level2: Live/PV, cate_level2_desc: "真人版 - 偶像/PV" }
+  - { id: 5_1, cate_level1: Live, cate_level2: Live/NonEnglishTranslated, cate_level2_desc: "真人版 - 非英文翻译" }
+  - { id: 5_1, cate_level1: Live, cate_level2: Live/RAW, cate_level2_desc: "真人版 - 生肉" }
+  - { id: 6_, cate_level1: Image, cate_level2: Image, cate_level2_desc: "图片" }
+  - { id: 6_1, cate_level1: Image, cate_level2: Image/Image, cate_level2_desc: "图片 - 图像" }
+  - { id: 6_1, cate_level1: Image, cate_level2: Image/Picture, cate_level2_desc: "图片 - 照片" }
+  - { id: 1_, cate_level1: Soft, cate_level2: Soft, cate_level2_desc: "软件" }
+  - { id: 1_1, cate_level1: Soft, cate_level2: Soft/App, cate_level2_desc: "软件 - 应用程序" }
+  - { id: 1_2, cate_level1: Soft, cate_level2: Soft/Game, cate_level2_desc: "软件 - 游戏" }
+
+userinfo:
+  constant: true
+  fields:
+    uid: 0
+    user_group: ''
+    username: 'ncraws'
+    share_ratio: ''
+    uploaded: 0
+    downloaded: 0
+    seeding: 0
+    leeching: 0
+    vip_group: 0
+list:
+  path: /
+  list:
+    selector: tbody[id='torrentListResults'] > tr
+  fields:
+    id:
+      selector: td:nth-child(2) > a[href^="/view/"]
+      attribute: href
+      filters:
+        - name: re_search
+          args: [ '\d+', 0 ]
+    tags:
+      selectors: td.tr-cat > div > a > img
+      attribute: title
+    zhhans:
+      case:
+        td.tr-cat > div > a[href^="/search?c=3_13"]: 繁
+        td.tr-cat > div > a > img.flag-Hant: 繁
+        "*": ""
+    zhcn:
+      case:
+        td.tr-cat > div > a > img.flag-zh: 简
+        "*": ""
+    en:
+      case:
+        td.tr-cat > div > a > img.flag-en: 英
+        "*": ""
+    category:
+      default_value: 1
+    details:
+      selector: td:nth-child(2) > a[href^="/view/"]
+      attribute: href
+    download:
+      selector: a[href^="/download/"]
+      attribute: href
+    size:
+      selector: td:nth-child(4)
+    grabs:
+      selector: td:nth-child(8)
+    seeders:
+      selector: td:nth-child(6)
+    leechers:
+      selector: td:nth-child(7)
+    downloadvolumefactor:
+      default_value: 0
+    uploadvolumefactor:
+      default_value: 1
+    free_deadline:
+      default_value: "{{max_time}}"
+      default_value_format: '%Y-%m-%d %H:%M:%S.%f'
+    subject:
+      selector: td:nth-child(2) > a[href^="/view/"]
+      filters:
+        - name: replace
+          args: [ "[神楽坂 まひろ] ", ""]
+        - name: replace
+          args: [ "[まひろ🍥] ", ""]
+        - name: replace
+          args: [ "[NC-Raws] ", ""]
+        - name: replace
+          args: [ "【推しの子】 ", ""]  
+    description:
+      text: "{{ fields['subject']+' 字幕: '+fields['zhcn'] +fields['zhhans'] +fields['en'] }}"
+    title:
+      text: "{{ fields['subject']}}"
+search:
+  paths:
+    - path: /search/1
+      categories: [ _ ]
+  query:
+    c: _
+    q: "{{query.keyword}}"
+  headers:
+    accept-language: "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+
+torrents:
+  list:
+    selector: tbody[id='torrentListResults'] > tr
+  fields:
+    id:
+      selector: td:nth-child(2) > a[href^="/view/"]
+      attribute: href
+      filters:
+        - name: re_search
+          args: [ '\d+', 0 ]
+    # 字幕
+    tags:
+      selectors: td.tr-cat > div > a > img
+      attribute: title
+    zhhans:
+      case:
+        td.tr-cat > div > a[href^="/search?c=3_13"]: 繁
+        td.tr-cat > div > a > img.flag-Hant: 繁
+        "*": ""
+    zhcn:
+      case:
+        td.tr-cat > div > a > img.flag-zh: 简
+        "*": ""
+    en:
+      case:
+        td.tr-cat > div > a > img.flag-en: 英
+        "*": ""
+    category:
+      default_value: 1
+    details:
+      selector: td:nth-child(2) > a[href^="/view/"]
+      attribute: href
+    download:
+      selector: a[href^="/download/"]
+      attribute: href
+    size:
+      selector: td:nth-child(4)
+    grabs:
+      selector: td:nth-child(8)
+    seeders:
+      selector: td:nth-child(6)
+    leechers:
+      selector: td:nth-child(7)
+    downloadvolumefactor:
+      default_value: 0
+    uploadvolumefactor:
+      default_value: 1
+    free_deadline: 
+      default_value: "{{max_time}}"
+      default_value_format: '%Y-%m-%d %H:%M:%S.%f'
+    subject:
+      selector: td:nth-child(2) > a[href^="/view/"]
+      filters:
+        - name: replace
+          args: [ "[神楽坂 まひろ] ", ""]
+        - name: replace
+          args: [ "[まひろ🍥] ", ""]
+        - name: replace
+          args: [ "[NC-Raws] ", ""]
+        - name: replace
+          args: [ "【推しの子】 ", ""]  
+    description:
+      text: "{{ fields['subject']+' 字幕: '+fields['zhcn'] +fields['zhhans'] +fields['en'] }}"
+    title:
+      text: "{{ fields['subject']}}"
