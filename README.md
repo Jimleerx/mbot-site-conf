@@ -5,6 +5,6 @@ https://github.com/htnanako/movie-robot-public
 https://github.com/Jimleerx/movie-bot-conf
 
 #### 站点
-ouo: 原Nc-Raws新番搬运组新开的站点
-kame: kamept
-piggo: 猪猪
+ouo: 原Nc-Raws新番搬运组新开的站点  
+kame: kamept  
+piggo: 猪猪  
