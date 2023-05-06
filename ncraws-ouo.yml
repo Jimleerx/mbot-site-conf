@@ -2,7 +2,6 @@ id: ouo
 name: ncraws(ouo.si)
 domain: https://ouo.si
 encoding: UTF-8
-lang: zh
 
 login:
   required: false
@@ -48,7 +47,7 @@ userinfo:
     leeching: 0
     vip_group: 0
 list:
-  path: /
+  path: /search?c=_
   list:
     selector: tbody[id='torrentListResults'] > tr
   fields:
@@ -114,13 +113,11 @@ list:
       text: "{{ fields['subject']}}"
 search:
   paths:
-    - path: /search/1
+    - path: /search
       categories: [ _ ]
   query:
     c: _
     q: "{{query.keyword}}"
-  headers:
-    accept-language: "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
 
 torrents:
   list:
