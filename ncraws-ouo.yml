@@ -47,19 +47,16 @@ userinfo:
     leeching: 0
     vip_group: 0
 list:
-  path: /search?c=_
+  path: /
   list:
     selector: tbody[id='torrentListResults'] > tr
   fields:
     id:
-      selector: td:nth-child(2) > a[href^="/view/"]
+      selector: td.tr-name > a[href^="/view/"]
       attribute: href
       filters:
         - name: re_search
           args: [ '\d+', 0 ]
-    tags:
-      selectors: td.tr-cat > div > a > img
-      attribute: title
     zhhans:
       case:
         td.tr-cat > div > a[href^="/search?c=3_13"]: 繁
@@ -76,19 +73,19 @@ list:
     category:
       default_value: 1
     details:
-      selector: td:nth-child(2) > a[href^="/view/"]
+      selector: td.tr-name > a[href^="/view/"]
       attribute: href
     download:
       selector: a[href^="/download/"]
       attribute: href
     size:
-      selector: td:nth-child(4)
+      selector: td.tr-size
     grabs:
-      selector: td:nth-child(8)
+      selector: td.tr-dl
     seeders:
-      selector: td:nth-child(6)
+      selector: td.tr-se
     leechers:
-      selector: td:nth-child(7)
+      selector: td.tr-le
     downloadvolumefactor:
       default_value: 0
     uploadvolumefactor:
@@ -97,7 +94,7 @@ list:
       default_value: "{{max_time}}"
       default_value_format: '%Y-%m-%d %H:%M:%S.%f'
     subject:
-      selector: td:nth-child(2) > a[href^="/view/"]
+      selector: td.tr-name > a[href^="/view/"]
       filters:
         - name: replace
           args: [ "[神楽坂 まひろ] ", ""]
@@ -124,15 +121,11 @@ torrents:
     selector: tbody[id='torrentListResults'] > tr
   fields:
     id:
-      selector: td:nth-child(2) > a[href^="/view/"]
+      selector: td.tr-name > a[href^="/view/"]
       attribute: href
       filters:
         - name: re_search
           args: [ '\d+', 0 ]
-    # 字幕
-    tags:
-      selectors: td.tr-cat > div > a > img
-      attribute: title
     zhhans:
       case:
         td.tr-cat > div > a[href^="/search?c=3_13"]: 繁
@@ -149,19 +142,19 @@ torrents:
     category:
       default_value: 1
     details:
-      selector: td:nth-child(2) > a[href^="/view/"]
+      selector: td.tr-name > a[href^="/view/"]
       attribute: href
     download:
       selector: a[href^="/download/"]
       attribute: href
     size:
-      selector: td:nth-child(4)
+      selector: td.tr-size
     grabs:
-      selector: td:nth-child(8)
+      selector: td.tr-dl
     seeders:
-      selector: td:nth-child(6)
+      selector: td.tr-se
     leechers:
-      selector: td:nth-child(7)
+      selector: td.tr-le
     downloadvolumefactor:
       default_value: 0
     uploadvolumefactor:
@@ -170,7 +163,7 @@ torrents:
       default_value: "{{max_time}}"
       default_value_format: '%Y-%m-%d %H:%M:%S.%f'
     subject:
-      selector: td:nth-child(2) > a[href^="/view/"]
+      selector: td.tr-name > a[href^="/view/"]
       filters:
         - name: replace
           args: [ "[神楽坂 まひろ] ", ""]
