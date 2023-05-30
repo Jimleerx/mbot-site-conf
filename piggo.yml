@@ -5,7 +5,7 @@ encoding: UTF-8
 
 login:
   test:
-    selector: a[href="logout.php"]
+    selector: a[href="javascript:;"]
 
 category_mappings:
   - {id: 401, cate_level1: Movie, cate_level2: Movies, desc: "Movies/电影"}
